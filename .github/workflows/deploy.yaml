@@ -22,8 +22,17 @@ jobs:
       - name: Grant execute permission to gradlew
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew clean build -x test
+      # 🔥 Spring Boot 기준: 실행 가능한 JAR 생성
+      - name: Build with Gradle (bootJar)
+        run: ./gradlew clean bootJar -x test
+
+      # 🔎 반드시 확인 (이 단계에서 JAR 안 보이면 100% 실패)
+      - name: Debug build output
+        run: |
+          echo "=== build/libs ==="
+          ls -al build/libs || true
+          echo "=== find jar ==="
+          find . -name "*.jar"
 
       - name: Upload start.sh file to EC2
         uses: appleboy/scp-action@v0.1.7
@@ -36,6 +45,7 @@ jobs:
           target: "/home/ec2-user/"
           debug: true
 
+      # ✅ 하드코딩 제거 + 실제 생성된 JAR만 전송
       - name: Upload JAR file to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -43,8 +53,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          #하드코딩된지점
-          source: "build/libs/practice-GitAction-0.0.1-SNAPSHOT.jar"
+          source: "build/libs/*.jar"
           target: "/home/ec2-user/"
           debug: true
 
