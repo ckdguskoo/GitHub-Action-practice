@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: gitAction-Test
 
 on:
   push:
@@ -33,6 +33,12 @@ jobs:
           ls -al build/libs || true
           echo "=== find jar ==="
           find . -name "*.jar"
+
+      - name: WHO AM I
+        run: |
+          echo "THIS IS THE BOOTJAR WORKFLOW"
+          pwd
+          ls -al build/libs          
 
       - name: Upload start.sh file to EC2
         uses: appleboy/scp-action@v0.1.7
