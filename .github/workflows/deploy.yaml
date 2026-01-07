@@ -52,7 +52,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           source: "*.jar"
-          target: "/home/ubuntu/app"
+          target: "/home/ec2-user/app"
 
       - name: Execute deploy script on EC2
         uses: appleboy/ssh-action@master
