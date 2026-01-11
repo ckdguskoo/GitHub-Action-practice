@@ -1,0 +1,33 @@
+name: Docker Build CI
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Grant execute permission to gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew clean bootJar -x test
+
+      - name: Build Docker Image
+        # -t 옵션으로 이미지 태그 설정 (여기서는 demo-app:latest)
+        run: docker build -t demo-app:latest .
+
+      - name: Verify Image Build
+        run: docker images
