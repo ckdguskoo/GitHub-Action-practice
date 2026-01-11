@@ -2,7 +2,7 @@ spring:
   application:
     name: vlog
   datasource:
-    url: jdbc:mysql://mysql:3306/practice
+    url: jdbc:mysql://mysql:3306/testdb;
     username: root
     password: root1234
 
