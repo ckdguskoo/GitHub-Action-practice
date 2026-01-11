@@ -1,7 +1,15 @@
 spring:
   application:
     name: vlog
-logging:
-  level:
-    org.hibernate.SQL: debug
-    org.hibernate.orm.jdbc.bind: trace
+  datasource:
+    url: jdbc:mysql://localhost:3306/testdb
+    username: root
+    password: root1234
+
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
