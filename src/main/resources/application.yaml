@@ -2,7 +2,8 @@ spring:
   application:
     name: vlog
   datasource:
-    url: jdbc:mysql://localhost:3306/testdb
+    #퍼블릭 ip에따라 수정해야함
+    url: jdbc:mysql://13.125.100.147:3306/testdb
     username: root
     password: root1234
 
