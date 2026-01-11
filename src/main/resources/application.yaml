@@ -1,15 +1,14 @@
 spring:
-  application:
-    name: vlog
   datasource:
-    url: jdbc:mysql://mysql:3306/testdb;
+    url: jdbc:mysql://mysql:3306/testdb
     username: root
     password: root1234
-
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
